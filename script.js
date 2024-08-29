@@ -164,12 +164,17 @@ function injectTemplateWelcome(){
     startBtn.addEventListener("click", function(){
 
         let isUserName = document.getElementById("userName").value !== ""
-        let isUserAge = document.getElementById("userAge").value !== ""
+        let isUserAge = (
+            document.getElementById("userAge").value !== "" &&
+            document.getElementById("userAge").value >= 6 &&
+            document.getElementById("userAge").value <= 50
+        )
+
 
         if(isUserName && isUserAge){
             nextQuiz()
         }
-        
+
     });
 }
 
