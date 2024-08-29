@@ -6,6 +6,39 @@ let quizImages = []
 let quizListOfAllIds = []
 let quizStatus = 0
 
+let quizAnswers = {
+    'quiz1':'option-3',
+    'quiz2':'option-1',
+    'quiz3':'option-5',
+    'quiz4':'option-5',
+    'quiz5':'option-2',
+    'quiz6':'option-1',
+    'quiz7':'option-2',
+    'quiz8':'option-2',
+    'quiz9':'option-2',
+    'quiz10':'option-6',
+    'quiz11':'option-4',
+    'quiz12':'option-1',
+    'quiz13':'option-4',
+    'quiz14':'option-7',
+    'quiz15':'option-2',
+    'quiz16':'option-3',
+    'quiz17':'option-1',
+    'quiz18':'option-6',
+    'quiz19':'option-5',
+    'quiz20':'option-8',
+    'quiz21':'option-4',
+    'quiz22':'option-4',
+    'quiz23':'option-7',
+    'quiz24':'option-6',
+    'quiz25':'option-4',
+    'quiz26':'option-7',
+    'quiz27':'option-7',
+    'quiz28':'option-3',
+    'quiz29':'option-2',
+    'quiz30':'option-8'
+}
+let userAnswers = {}
 /**
  * This function indexing all quiz images in the array
  * @param {array} array An array to store all the quiz images
@@ -139,7 +172,7 @@ function nextQuiz(){
     } else {
         return injectTemplateShowResult()
     }
-
+    
     // 1) Empty all space
     document.getElementById('mainSpace').innerHTML = ''
     
@@ -147,7 +180,6 @@ function nextQuiz(){
     let quizPaths = getRandomQuiz(quizListOfAllIds)
     
     // 3) Implement HTML code
-    console.log(quizPaths)
     injectTemplateQuiz(quizPaths)
       
 }
@@ -180,7 +212,13 @@ function injectTemplateQuiz(path){
         let answerImg = document.createElement('img')
         answerImg.setAttribute('width', '70px')
         answerImg.setAttribute('src', path.imageAnswers[i])
+        answerImg.setAttribute('id', `option-${i+1}`)
         answerImg.addEventListener("click", function(){
+            
+            // save user selection
+            userAnswers.push(this.id)
+            console.log()
+        
             nextQuiz()
         });
         answerDiv.appendChild(answerImg)
@@ -193,8 +231,16 @@ function injectTemplateQuiz(path){
  */
 function injectTemplateShowResult(){
 
+    let score = 0
+    for (let i = 0; i < quizAnswers.length; i++) {
+        if (quizAnswers[i] === userAnswers[i]){
+            ++score
+        }
+        
+    }
+
     // 1) Empty all space
-    document.getElementById('mainSpace').innerHTML = 'Done'
+    document.getElementById('mainSpace').innerHTML = score
 
 }
 
