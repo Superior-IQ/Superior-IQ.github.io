@@ -39,6 +39,7 @@ let quizAnswers = {
     'quiz30':'option-8'
 }
 let userAnswers = {}
+
 /**
  * This function indexing all quiz images in the array
  * @param {array} array An array to store all the quiz images
@@ -216,8 +217,7 @@ function injectTemplateQuiz(path){
         answerImg.addEventListener("click", function(){
             
             // save user selection
-            userAnswers.push(this.id)
-            console.log()
+            Object.assign(userAnswers, {[path.id]: this.id})
         
             nextQuiz()
         });
@@ -231,16 +231,16 @@ function injectTemplateQuiz(path){
  */
 function injectTemplateShowResult(){
 
-    let score = 0
-    for (let i = 0; i < quizAnswers.length; i++) {
-        if (quizAnswers[i] === userAnswers[i]){
-            ++score
-        }
+    // let score = 0
+    // for (let i = 0; i < quizAnswers.length; i++) {
+    //     if (quizAnswers[i] === userAnswers[i]){
+    //         ++score
+    //     }
         
-    }
+    // }
 
     // 1) Empty all space
-    document.getElementById('mainSpace').innerHTML = score
+    document.getElementById('mainSpace').innerHTML = JSON.stringify(userAnswers)
 
 }
 
