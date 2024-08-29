@@ -190,7 +190,7 @@ function nextQuiz(){
  * @param {object} path contain path of images
  */
 function injectTemplateQuiz(path){
-        /*
+    /*
     
         <img>
         <div>
@@ -231,16 +231,17 @@ function injectTemplateQuiz(path){
  */
 function injectTemplateShowResult(){
 
-    // let score = 0
-    // for (let i = 0; i < quizAnswers.length; i++) {
-    //     if (quizAnswers[i] === userAnswers[i]){
-    //         ++score
-    //     }
+    // calculate user true answer
+    let score = 0
+    for (let i = 0; i < Object.keys(quizAnswers).length; i++) {
+        if(quizAnswers[`quiz${i}`] === userAnswers[`quiz${i}`]){
+            ++score
+        }
         
-    // }
+    }
 
     // 1) Empty all space
-    document.getElementById('mainSpace').innerHTML = JSON.stringify(userAnswers)
+    document.getElementById('mainSpace').innerHTML = score
 
 }
 
