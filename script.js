@@ -143,6 +143,7 @@ function injectTemplateWelcome(){
     userNameInput.className = 'textField'
     userNameInput.type = 'text'
     userNameInput.placeholder = 'Name'
+    userNameInput.id = 'userName'
     mainSpace.appendChild(userNameInput)
     
     // <input> get age
@@ -150,6 +151,7 @@ function injectTemplateWelcome(){
     userAgeInput.className = 'textField'
     userAgeInput.type = 'number'
     userAgeInput.placeholder = 'Age'
+    userAgeInput.id = 'userAge'
     mainSpace.appendChild(userAgeInput)
 
     // <input> start btn
@@ -160,7 +162,14 @@ function injectTemplateWelcome(){
     mainSpace.appendChild(startBtn)
     // if start button pressed: 
     startBtn.addEventListener("click", function(){
-        nextQuiz()
+
+        let isUserName = document.getElementById("userName").value !== ""
+        let isUserAge = document.getElementById("userAge").value !== ""
+
+        if(isUserName && isUserAge){
+            nextQuiz()
+        }
+        
     });
 }
 
