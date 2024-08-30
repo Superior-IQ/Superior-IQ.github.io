@@ -1,120 +1,52 @@
-// [ Initialize Variables ]
-
-let quizImagePath = './Images/quiz'
-/** This array stores all the addresses of the quiz images */
-let quizImages = []
-let quizListOfAllIds = []
-let quizStatus = 0
-
-let quizAnswers = {
-    'quiz1':'option-3',
-    'quiz2':'option-1',
-    'quiz3':'option-5',
-    'quiz4':'option-5',
-    'quiz5':'option-2',
-    'quiz6':'option-1',
-    'quiz7':'option-2',
-    'quiz8':'option-2',
-    'quiz9':'option-2',
-    'quiz10':'option-6',
-    'quiz11':'option-4',
-    'quiz12':'option-1',
-    'quiz13':'option-4',
-    'quiz14':'option-7',
-    'quiz15':'option-2',
-    'quiz16':'option-3',
-    'quiz17':'option-1',
-    'quiz18':'option-6',
-    'quiz19':'option-5',
-    'quiz20':'option-8',
-    'quiz21':'option-4',
-    'quiz22':'option-4',
-    'quiz23':'option-7',
-    'quiz24':'option-6',
-    'quiz25':'option-4',
-    'quiz26':'option-7',
-    'quiz27':'option-7',
-    'quiz28':'option-3',
-    'quiz29':'option-2',
-    'quiz30':'option-8'
-}
-let userAnswers = {}
+import { comparTwoObjects, getRandomIndexOfArray } from './modules/utils.js';
+import { setQuizImages, setQuizTrueResults } from "./modules/methods.js";
 
 /**
- * This function indexing all quiz images in the array
- * @param {array} array An array to store all the quiz images
+ * This array stores all the addresses of the quiz images
  */
-function setQuizImages(array){
+let quizzes = setQuizImages()
 
-    // It covers all 30 folders: from 1 to 30
-    for (let i = 0; i < 30; i++) {
-        const testNumber = i + 1
+/**
+ * Save all the correct quiz answers based on the quiz ID
+ */
+const quizAnswers = setQuizTrueResults()
 
-        array.push(
-            {
-                id: `quiz${testNumber}`,
-                imageQuestion: `${quizImagePath}/${testNumber}/test${testNumber}.png`,
-                imageAnswers: []
-            }
+/**
+ * It stores all the information about the user
+ */
+let user = {
+    score: 0,
+    name: '',
+    age: 0,
+    quizResults: {}
+}
+
+/**
+ * The general task of this function is to control the process of performing quiz
+ * - When to go to the next quiz and when to show the results of the quizzes
+ */
+function quizHandler(){
+
+    // If all quizzes are completed
+    if (quizzes.length === 0){
+
+        // 1) Calculate user answer
+        user.score = comparTwoObjects(quizAnswers, user.quizResults).true
+
+        // 2) Show result
+        return injectTemplateShowResult()
+
+    } else {
+
+        // Go to the next quiz
+        injectTemplateQuiz(
+            getRandomIndexOfArray(quizzes, true)
         )
 
-        // from directory 1 - 12 that they are contain 6 images
-        if (i <= 11){
-            for (let x = 1; x <= 6; x++) {
-                array[i].imageAnswers.push(
-                    `${quizImagePath}/${testNumber}/${testNumber}-${x}.png`
-                )
-            }
-
-        // from directory 13 - 30 that they are contain 8 images
-        } else {
-            for (let x = 1; x <= 8; x++) {
-                array[i].imageAnswers.push(
-                    `${quizImagePath}/${testNumber}/${testNumber}-${x}.png`
-                )
-            }
-        }
     }
 
-}; setQuizImages(quizImages)
-
-/**
- * This function collects all quizzes id in a list
- * @param {array} array An array to store all the IDs
- */
-function setQuizListAllId(array){
-    for (let id = 0; id < quizImages.length; id++) {
-        array.push(quizImages[id].id)
-    }
-}; setQuizListAllId(quizListOfAllIds)
-
-/**
- * This function randomly selects an object from the array and finally deletes it
- * @param {array} array An array of objects: [{}, {}, {}, ...]
- * @returns {number} Random number between 0 to array.length
- */
-function getRandomQuiz(array){
-
-    // A) Receive quiz randomly
-    let randomIndex = Math.floor(Math.random() * array.length)
-    let randomQuiz = array[randomIndex]
-
-    // B) get images path
-    let randomQuizPath = {}
-    for (let i = 0; i < quizImages.length; i++) {
-        if (quizImages[i].id === randomQuiz){
-            randomQuizPath = quizImages[i]
-            break
-        }
-    }
-
-    // remove element
-    array.splice(randomIndex, 1)
-
-    return randomQuizPath
 }
 
-/** This function implements the HTML structure of the welcome panel section */
 function injectTemplateWelcome(){
     /*
     
@@ -163,6 +95,7 @@ function injectTemplateWelcome(){
     // if start button pressed: 
     startBtn.addEventListener("click", function(){
 
+        // control user input: age, username
         let isUserName = document.getElementById("userName").value !== ""
         let isUserAge = (
             document.getElementById("userAge").value !== "" &&
@@ -172,37 +105,18 @@ function injectTemplateWelcome(){
 
 
         if(isUserName && isUserAge){
-            nextQuiz()
+
+            // 1) Store values
+            user.name = document.getElementById("userName").value
+            user.age = document.getElementById("userAge").value
+
+            // 2) Conducting quizzes
+            quizHandler()
         }
 
     });
 }
 
-/** The general task of this function is to control the process of performing quiz */
-function nextQuiz(){
-
-    // 0) change quiz status
-    if (quizStatus < quizImages.length){
-        quizStatus++
-    } else {
-        return injectTemplateShowResult()
-    }
-    
-    // 1) Empty all space
-    document.getElementById('mainSpace').innerHTML = ''
-    
-    // 2) Get random image addresses of quiz
-    let quizPaths = getRandomQuiz(quizListOfAllIds)
-    
-    // 3) Implement HTML code
-    injectTemplateQuiz(quizPaths)
-      
-}
-
-/**
- * This function implements the HTML part of the quiz
- * @param {object} path contain path of images
- */
 function injectTemplateQuiz(path){
     /*
     
@@ -212,6 +126,9 @@ function injectTemplateQuiz(path){
         </div>
 
     */
+
+    // Free up space 
+    document.getElementById('mainSpace').innerHTML = ''
 
     // <img> question image
     let questionImg = document.createElement('img')
@@ -223,40 +140,34 @@ function injectTemplateQuiz(path){
     // <div> to put all answerImages
     let answerDiv = document.createElement('div')
     // <img> making tags of answer images one by one
-    for (let i = 0; i < path.imageAnswers.length; i++) {
+
+    let len = path.imageAnswers.length
+    let zeroTolLength = Array.from(Array(len).keys())
+
+    for (let i = 0; i < len; i++) {
+        let index = getRandomIndexOfArray(zeroTolLength, true)
         let answerImg = document.createElement('img')
         answerImg.setAttribute('width', '70px')
-        answerImg.setAttribute('src', path.imageAnswers[i])
-        answerImg.setAttribute('id', `option-${i+1}`)
+        answerImg.setAttribute('src', path.imageAnswers[index])
+        answerImg.setAttribute('id', `option-${index+1}`)
         answerImg.addEventListener("click", function(){
             
             // save user selection
-            Object.assign(userAnswers, {[path.id]: this.id})
+            Object.assign(user.quizResults, {[path.id]: this.id})
         
-            nextQuiz()
+            quizHandler()
         });
         answerDiv.appendChild(answerImg)
     }
     mainSpace.appendChild(answerDiv)
 }
 
-/**
- * Implementation of the final panel that is supposed to show the result to the user
- */
 function injectTemplateShowResult(){
+    // Free up space 
+    document.getElementById('mainSpace').innerHTML = ''
 
-    // calculate user true answer
-    let score = 0
-    for (let i = 0; i < Object.keys(quizAnswers).length; i++) {
-        if(quizAnswers[`quiz${i}`] === userAnswers[`quiz${i}`]){
-            ++score
-        }
-        
-    }
-
-    // 1) Empty all space
-    document.getElementById('mainSpace').innerHTML = score
-
+    // Injection
+    document.getElementById('mainSpace').innerHTML = user.score
 }
 
 //* Start
