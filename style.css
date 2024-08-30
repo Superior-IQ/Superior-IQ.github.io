@@ -138,3 +138,10 @@ body {
     transform: scale(1 , 1);
 
 }
+
+.cheat-showResult {
+    background-color: rgb(181, 255, 181);
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+}
