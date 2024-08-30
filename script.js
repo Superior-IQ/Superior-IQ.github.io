@@ -18,7 +18,8 @@ let user = {
     score: 0,
     name: '',
     age: 0,
-    quizResults: {}
+    quizResults: {},
+    cheat: false
 }
 
 /**
@@ -95,14 +96,16 @@ function injectTemplateWelcome(){
     // if start button pressed: 
     startBtn.addEventListener("click", function(){
 
-        // control user input: age, username
+        // control user input: age, username, cheat
         let isUserName = document.getElementById("userName").value !== ""
         let isUserAge = (
             document.getElementById("userAge").value !== "" &&
             document.getElementById("userAge").value >= 6 &&
             document.getElementById("userAge").value <= 50
         )
-
+        //cheating: mange to active cheat
+        user.cheat = document.getElementById("userName").value === "cheat" && document.getElementById("userAge").value === '0'
+        isUserAge = user.cheat || isUserAge
 
         if(isUserName && isUserAge){
 
@@ -140,21 +143,25 @@ function injectTemplateQuiz(path){
     // <div> to put all answerImages
     let answerDiv = document.createElement('div')
     // <img> making tags of answer images one by one
-
     let len = path.imageAnswers.length
     let zeroTolLength = Array.from(Array(len).keys())
-
     for (let i = 0; i < len; i++) {
         let index = getRandomIndexOfArray(zeroTolLength, true)
         let answerImg = document.createElement('img')
         answerImg.setAttribute('width', '70px')
         answerImg.setAttribute('src', path.imageAnswers[index])
         answerImg.setAttribute('id', `option-${index+1}`)
+        // Cheat section: start
+        if (user.cheat){
+            if (quizAnswers[path.id] === answerImg.id){ // The option with the correct answer was one
+                answerImg.className = 'cheat-showResult'
+
+            }
+        }
+        // Cheat section: end
         answerImg.addEventListener("click", function(){
-            
             // save user selection
             Object.assign(user.quizResults, {[path.id]: this.id})
-        
             quizHandler()
         });
         answerDiv.appendChild(answerImg)
