@@ -1,5 +1,5 @@
 import { comparTwoObjects, getRandomIndexOfArray } from './modules/utils.js';
-import { setQuizImages, setQuizTrueResults } from "./modules/methods.js";
+import { calculateIQ, setQuizImages, setQuizTrueResults } from "./modules/methods.js";
 
 /**
  * This array stores all the addresses of the quiz images
@@ -174,7 +174,12 @@ function injectTemplateShowResult(){
     document.getElementById('mainSpace').innerHTML = ''
 
     // Injection
-    document.getElementById('mainSpace').innerHTML = user.score
+    document.getElementById('mainSpace').innerHTML = `
+    Username: ${user.name}<br>
+    Age: ${user.age}<br>
+    Score: ${user.score}<br>
+    Level: ${calculateIQ(30, user.score)}<br>
+    `
 }
 
 //* Start

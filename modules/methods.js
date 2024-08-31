@@ -72,3 +72,25 @@ export function setQuizTrueResults(){
         'quiz30':'option-8'
     }
 }
+
+export function calculateIQ(numberOfQuiz, CorrectAnswer){
+    
+    let result = CorrectAnswer / numberOfQuiz
+
+    switch (true) {
+        case (result <= 0.2):
+            return 'Low'
+
+        case (result <= 0.4):
+            return 'Below Average'
+
+        case (result <= 0.6):
+            return 'Average'
+
+        case (result <= 0.8):
+            return 'High'
+
+        case (result <= 1):
+            return 'Genius'
+    }
+}
