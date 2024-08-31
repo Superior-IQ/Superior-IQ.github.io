@@ -53,3 +53,27 @@ export function getRandomIndexOfArray(array, removeIndex=false){
 
     return randomElement
 }
+
+/**
+ * This function returns a random number between two numbers
+ * 
+ * @param {number} min The lowest number
+ * @param {number} max The highest number
+ * @returns {number} random number
+ */
+export function getRandomNumber(min, max) {
+    // 1) Get random number
+    const randomNumber = Math.random()
+
+    // 2) 
+    const range = randomNumber * (max - min + 1)
+
+    // 3) 
+    const setStartPoint = range + min
+
+    // 4) Convert to integer number
+    const result = Math.floor(setStartPoint)
+
+    // 5) return result
+    return result
+}
