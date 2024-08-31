@@ -15,11 +15,15 @@ const quizAnswers = setQuizTrueResults()
  * It stores all the information about the user
  */
 let user = {
-    score: 0,
     name: '',
     age: 0,
+    cheat: false,
     quizResults: {},
-    cheat: false
+    iq: {
+        score: 0,
+        level: '',
+        grade: 0
+    }
 }
 
 /**
@@ -32,7 +36,9 @@ function quizHandler(){
     if (quizzes.length === 0){
 
         // 1) Calculate user answer
-        user.score = comparTwoObjects(quizAnswers, user.quizResults).true
+        user.iq.score = comparTwoObjects(quizAnswers, user.quizResults).true
+        user.iq.level = calculateIQ(30, user.iq.score).level
+        user.iq.grade = calculateIQ(30, user.iq.score).grade
 
         // 2) Show result
         return injectTemplateShowResult()
@@ -177,8 +183,9 @@ function injectTemplateShowResult(){
     document.getElementById('mainSpace').innerHTML = `
     Username: ${user.name}<br>
     Age: ${user.age}<br>
-    Score: ${user.score}<br>
-    Level: ${calculateIQ(30, user.score)}<br>
+    Score: ${user.iq.score}<br>
+    Level: ${user.iq.level}<br>
+    Grade: ${user.iq.grade}<br>
     `
 }
 

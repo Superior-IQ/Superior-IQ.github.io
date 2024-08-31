@@ -1,3 +1,5 @@
+import { getRandomNumber } from "./utils.js";
+
 /**
  * This function is a one-time function that returns a large amount of file addresses as an array
  * - Just turning a long manual process into a simple automated process
@@ -73,24 +75,33 @@ export function setQuizTrueResults(){
     }
 }
 
+/**
+ * This function calculates your IQ level and grade
+ * @param {number} numberOfQuiz Number of all quizzes
+ * @param {number} CorrectAnswer Number of all correct answers
+ * @returns {object}  {level:'', grade: 0}
+ */
 export function calculateIQ(numberOfQuiz, CorrectAnswer){
     
     let result = CorrectAnswer / numberOfQuiz
 
     switch (true) {
         case (result <= 0.2):
-            return 'Low'
+            return { level: 'Low', grade: getRandomNumber(1, 70)}
 
         case (result <= 0.4):
-            return 'Below Average'
+            return { level: 'Below Average', grade: getRandomNumber(71, 84)}
 
         case (result <= 0.6):
-            return 'Average'
+            return { level: 'Average', grade: getRandomNumber(85, 115)}
 
         case (result <= 0.8):
-            return 'High'
+            return { level: 'Above Average', grade: getRandomNumber(116, 144)}
 
-        case (result <= 1):
-            return 'Genius'
+        case (result < 1):
+            return { level: 'Above Average', grade: getRandomNumber(145, 159)}
+
+        case (result > 1):
+            return { level: 'Above Average', grade: getRandomNumber(160, 210)}
     }
 }
