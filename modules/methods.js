@@ -87,21 +87,21 @@ export function calculateIQ(numberOfQuiz, CorrectAnswer) {
 
     switch (true) {
         case (result <= 0.2):
-            return { level: 'کم(70-1)', grade: getRandomNumber(1, 70) }
+            return { level: 'کم (70-1)', grade: getRandomNumber(1, 70) }
 
         case (result <= 0.4):
-            return { level: '(71-84)زیر میانگین', grade: getRandomNumber(71, 84) }
+            return { level: '(71-84) زیر میانگین', grade: getRandomNumber(71, 84) }
 
         case (result <= 0.6):
-            return { level: '(85-115)میانگین', grade: getRandomNumber(85, 115) }
+            return { level: '(85-115) میانگین', grade: getRandomNumber(85, 115) }
 
         case (result <= 0.8):
-            return { level: '(116-144)بالا تر از میانگین', grade: getRandomNumber(116, 144) }
+            return { level: '(116-144) بالا تر از میانگین', grade: getRandomNumber(116, 144) }
 
         case (result < 1):
-            return { level: '(145-159)بالا تر از میانگین', grade: getRandomNumber(145, 159) }
+            return { level: '(145-159) زیاد', grade: getRandomNumber(145, 159) }
 
-        case (result > 1):
-            return { level: '(160-210)بالا تر از میانگین', grade: getRandomNumber(160, 210) }
+        case (result >= 1):
+            return { level: '(160-210) نابغه', grade: getRandomNumber(160, 210) }
     }
 }

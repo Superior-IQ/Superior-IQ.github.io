@@ -341,7 +341,7 @@ function injectTemplateQuiz(path) {
         // Cheat section: start
         if (user.cheat) {
             if (quizAnswers[path.id] === answerImg.id) { // The option with the correct answer was one
-                answerImg.className = 'cheat-showResult'
+                answerImg.style = 'border: 3px solid yellow'
 
             }
         }
