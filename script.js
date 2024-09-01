@@ -7,10 +7,10 @@ import { calculateIQ, setQuizImages, setQuizTrueResults } from "./modules/method
 
 let backgroundMusic = document.createElement("EMBED");
 backgroundMusic.setAttribute("src", "./backgroundMusic.mp3");
-backgroundMusic.setAttribute("loop" , true)
-backgroundMusic.setAttribute("autostart" , true)
-backgroundMusic.setAttribute("width" , "0")
-backgroundMusic.setAttribute("height" , "0")
+backgroundMusic.setAttribute("loop", true)
+backgroundMusic.setAttribute("autostart", true)
+backgroundMusic.setAttribute("width", "0")
+backgroundMusic.setAttribute("height", "0")
 backgroundMusic.className = 'backgroundMusic'
 document.body.appendChild(backgroundMusic);
 
@@ -237,11 +237,11 @@ function injectTemplateQuiz(path) {
     */
 
     // Free up space 
-    
+
     document.getElementById('mainSpace').innerHTML = ''
     // <img> question image
 
-    
+
     let leaves = document.createElement('div')
     leaves.className = 'leaves'
     mainSpace.appendChild(leaves)
@@ -319,7 +319,7 @@ function injectTemplateQuiz(path) {
     let s = document.createElement('div')
     s.className = 'bb'
     b.appendChild(s)
-    
+
     let questionImg = document.createElement('img')
     questionImg.id = 'quizImage'
     questionImg.setAttribute('src', path.imageQuestion)

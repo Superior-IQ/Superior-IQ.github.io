@@ -7,13 +7,13 @@ import { getRandomNumber } from "./utils.js";
  * 
  * @returns {Array}
  */
-export function setQuizImages(){
+export function setQuizImages() {
     const path = './Images/quiz'
     const numberOfFolders = 30
     let result = []
 
     let x = 1
-    while (x <= numberOfFolders){
+    while (x <= numberOfFolders) {
         let obj = {
             id: `quiz${x}`,
             imageQuestion: `${path}/${x}/test${x}.png`,
@@ -26,7 +26,7 @@ export function setQuizImages(){
                 `${path}/${x}/${x}-${i}.png`
             )
         }
-        
+
         result.push(obj)
         x++
     }
@@ -40,38 +40,38 @@ export function setQuizImages(){
  * 
  * @returns {object}
  */
-export function setQuizTrueResults(){
+export function setQuizTrueResults() {
     return {
-        'quiz1':'option-3',
-        'quiz2':'option-1',
-        'quiz3':'option-5',
-        'quiz4':'option-5',
-        'quiz5':'option-2',
-        'quiz6':'option-1',
-        'quiz7':'option-2',
-        'quiz8':'option-2',
-        'quiz9':'option-2',
-        'quiz10':'option-6',
-        'quiz11':'option-4',
-        'quiz12':'option-1',
-        'quiz13':'option-4',
-        'quiz14':'option-7',
-        'quiz15':'option-2',
-        'quiz16':'option-3',
-        'quiz17':'option-1',
-        'quiz18':'option-6',
-        'quiz19':'option-5',
-        'quiz20':'option-8',
-        'quiz21':'option-4',
-        'quiz22':'option-4',
-        'quiz23':'option-7',
-        'quiz24':'option-6',
-        'quiz25':'option-4',
-        'quiz26':'option-7',
-        'quiz27':'option-7',
-        'quiz28':'option-3',
-        'quiz29':'option-2',
-        'quiz30':'option-8'
+        'quiz1': 'option-3',
+        'quiz2': 'option-1',
+        'quiz3': 'option-5',
+        'quiz4': 'option-5',
+        'quiz5': 'option-2',
+        'quiz6': 'option-1',
+        'quiz7': 'option-2',
+        'quiz8': 'option-2',
+        'quiz9': 'option-2',
+        'quiz10': 'option-6',
+        'quiz11': 'option-4',
+        'quiz12': 'option-1',
+        'quiz13': 'option-4',
+        'quiz14': 'option-7',
+        'quiz15': 'option-2',
+        'quiz16': 'option-3',
+        'quiz17': 'option-1',
+        'quiz18': 'option-6',
+        'quiz19': 'option-5',
+        'quiz20': 'option-8',
+        'quiz21': 'option-4',
+        'quiz22': 'option-4',
+        'quiz23': 'option-7',
+        'quiz24': 'option-6',
+        'quiz25': 'option-4',
+        'quiz26': 'option-7',
+        'quiz27': 'option-7',
+        'quiz28': 'option-3',
+        'quiz29': 'option-2',
+        'quiz30': 'option-8'
     }
 }
 
@@ -81,27 +81,27 @@ export function setQuizTrueResults(){
  * @param {number} CorrectAnswer Number of all correct answers
  * @returns {object}  {level:'', grade: 0}
  */
-export function calculateIQ(numberOfQuiz, CorrectAnswer){
-    
+export function calculateIQ(numberOfQuiz, CorrectAnswer) {
+
     let result = CorrectAnswer / numberOfQuiz
 
     switch (true) {
         case (result <= 0.2):
-            return { level: 'کم(70-1)', grade: getRandomNumber(1, 70)}
+            return { level: 'کم(70-1)', grade: getRandomNumber(1, 70) }
 
         case (result <= 0.4):
-            return { level: '(71-84)زیر میانگین', grade: getRandomNumber(71, 84)}
+            return { level: '(71-84)زیر میانگین', grade: getRandomNumber(71, 84) }
 
         case (result <= 0.6):
-            return { level: '(85-115)میانگین', grade: getRandomNumber(85, 115)}
+            return { level: '(85-115)میانگین', grade: getRandomNumber(85, 115) }
 
         case (result <= 0.8):
-            return { level: '(116-144)بالا تر از میانگین', grade: getRandomNumber(116, 144)}
+            return { level: '(116-144)بالا تر از میانگین', grade: getRandomNumber(116, 144) }
 
         case (result < 1):
-            return { level: '(145-159)بالا تر از میانگین', grade: getRandomNumber(145, 159)}
+            return { level: '(145-159)بالا تر از میانگین', grade: getRandomNumber(145, 159) }
 
         case (result > 1):
-            return { level: '(160-210)بالا تر از میانگین', grade: getRandomNumber(160, 210)}
+            return { level: '(160-210)بالا تر از میانگین', grade: getRandomNumber(160, 210) }
     }
 }
