@@ -6,7 +6,7 @@ import { calculateIQ, setQuizImages, setQuizTrueResults } from "./modules/method
  */
 
 let backgroundMusic = document.createElement("EMBED");
-backgroundMusic.setAttribute("src", "./backgroundMusic.mp3");
+backgroundMusic.setAttribute("src", "backgroundmusic.mp3");
 backgroundMusic.setAttribute("loop", true)
 backgroundMusic.setAttribute("autostart", true)
 backgroundMusic.setAttribute("width", "0")
