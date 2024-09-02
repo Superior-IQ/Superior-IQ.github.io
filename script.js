@@ -14,7 +14,7 @@ backgroundMusic.setAttribute("height", "0")
 backgroundMusic.className = 'backgroundMusic'
 document.body.appendChild(backgroundMusic);
 
-/**
+
 let quizzes = setQuizImages()
 
 /**
